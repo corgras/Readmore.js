@@ -9,6 +9,12 @@ Readmore.js is tested and supported on modern browser versions, except Internet 
 
 ## Install
 
+Install Readmore.js with npm:
+
+```
+$ npm install readmore-javascript
+```
+
 Then include it in your HTML:
 
 ```html
