@@ -1,6 +1,6 @@
 # Readmore.js
 
-A smooth, responsive JavaScript plugin for collapsing and expanding long blocks of text with "Read more" and "Close" links.
+A smooth, responsive Vanilla JS plugin for collapsing and expanding long blocks of text with "Read more" and "Close" links.
 
 The "Read More" script is designed to create interactive "Read More" functionality on your website. It allows you to hide and reveal long textual content in blocks so that users can see it in its entirety by clicking the "Read More" button. This script also provides adaptive behavior depending on the screen width.
 
