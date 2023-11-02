@@ -1,11 +1,8 @@
 /*!
- * @preserve
- *
- * Readmore.js JavaScript plugin
+ * Readmore.js v1.2.0 - JavaScript plugin
  * Author: @RoS (CORGRAS)
- * Project home: https://corgras.github.io/blog/js/readmore/
+ * Project home: https://corgras.github.io/readmore/
  * Licensed under the MIT license
- *
  */
 function initReadMore(selector, options, maxWidth) {
 	var elements = document.querySelectorAll(selector);
@@ -99,3 +96,27 @@ function initReadMore(selector, options, maxWidth) {
 		handleMediaChange({ matches: true });
 	}
 }
+
+// Example usage for all screen sizes:
+// Пример использования для всех размеров экрана:
+//document.addEventListener('DOMContentLoaded', function () {
+//	initReadMore('.readmore', {
+//		collapsedHeight: 200,
+//		speed: 100,
+//		heightMargin: 16,
+//		moreLink: '<a href="#">Read More</a>',
+//		lessLink: '<a href="#">Close</a>'
+//	});
+//});
+
+// Example usage for a specific screen width (eg 768px):
+// Пример использования для конкретной ширины экрана (например, 768px):
+//document.addEventListener('DOMContentLoaded', function () {
+//	initReadMore('.readmore', {
+//		collapsedHeight: 200,
+//		speed: 100,
+//		heightMargin: 16,
+//		moreLink: '<a href="#">Read More</a>',
+//		lessLink: '<a href="#">Close</a>'
+//	}, 768);
+//});
