@@ -1,3 +1,7 @@
+![Version](https://img.shields.io/badge/version-{VERSION}-blue.svg)
+![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
 # Readmore.js
 
 A smooth, responsive Vanilla JS plugin for collapsing and expanding long blocks of text with "Read more" and "Close" links.
