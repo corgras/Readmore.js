@@ -1,99 +1,118 @@
-![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)
-![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+<div align="center">
+<a href="https://github.com/corgras/Readmore.js">
+<img src="https://corgras.github.io/assets/img/logo.svg" alt="Logo" width="80" height="80">
+</a>
+<h1 align="center">Readmore.js<br>A simple and effective solution in pure JS.</h1>
+</div>
+<br>
+<div align="center">
+<img src="https://img.shields.io/badge/version-1.2.0-blue.svg" alt="Version">
+<img src="https://img.shields.io/badge/language-JavaScript-yellow.svg" alt="JavaScript">
+<img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+</div>
+<br>
+A smooth and responsive plugin in pure JavaScript for collapsing and expanding long text blocks. The "Read more" and "Close" buttons allow you to hide or show additional content, enhancing readability and saving space on the page. Perfect for mobile devices and convenient management of large amounts of text.
+<br><br>
 
-# Readmore.js
+**NOTE:**
 
-A smooth, responsive Vanilla JS plugin for collapsing and expanding long blocks of text with "Read more" and "Close" links.
+ - The script does not depend on external libraries (such as jQuery).  
+ - Content displayed with Readmore.js is fully accessible to search engines from the start, as the HTML structure remains unchanged.
+<br><br>
 
-The "Read More" script is designed to create interactive "Read More" functionality on your website. It allows you to hide and reveal long textual content in blocks so that users can see it in its entirety by clicking the "Read More" button. This script also provides adaptive behavior depending on the screen width.
+## Install NPM
 
-Readmore.js is tested and supported on modern browser versions, except Internet Explorer 11 and lower.
-
-
-## Install
-
-Install Readmore.js with npm:
+The recommended installation method is NPM. Install the latest version by the following command:
 
 ```
 $ npm install readmore-javascript
 ```
+<br>
 
 Then include it in your HTML:
 
 ```html
-<script src="/readmore/readmore.min.js"></script>
+<script src="/node_modules/readmore-javascript/dist/readmore.js"></script>
 ```
+<br>
 
+## Install Hosting Files
 
-## Use
+Download a zip of the latest release. [Download](https://github.com/corgras/Readmore.js/releases/latest)
 
-```javascript
-initReadMore('.readmore');
+Go to the `dist/` directory, and import the `readmore.min.js` file by the `<script>` tag:
+
+```html
+<script src="readmore.min.js"></script>
 ```
-Call the `initReadMore()` function to initialize the script. This function takes three arguments:
-				
-* `selector` - Selector that selects blocks with text content.
-* `options` - Script settings (e.g., `collapsedHeight`, `speed`, `heightMargin`, `moreLink`, `lessLink`).
-* `maxWidth` - Maximum screen width at which the script is active (default is `null` for all screen sizes).
+<br>
 
+## Usage
 
-Example usage for all screen sizes:
-
-```javascript
-document.addEventListener('DOMContentLoaded', function () {
-  initReadMore('.readmore', {
-    collapsedHeight: 100,
-    speed: 200,
-    heightMargin: 16,
-    moreLink: '<a href="#">Read More</a>',
-    lessLink: '<a href="#">Close</a>'
-  });
-});
-```
-
-Example usage for a specific screen width (eg 768px):
+**Initialization without additional parameters:**
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
-  initReadMore('.readmore', {
-    collapsedHeight: 100,
-    speed: 200,
-    heightMargin: 16,
-    moreLink: '<a href="#">Read More</a>',
-    lessLink: '<a href="#">Close</a>'
-  }, 768);
+    initReadMore('.read-more');
 });
 ```
+<br>
 
-### The options:
+**Initialization with additional options for all screen sizes:**
 
-* `speed: 100` - in milliseconds</li>
-* `collapsedHeight: 200` - in pixels</li>
-* `heightMargin: 16` - in pixels, avoids collapsing blocks that are only slightly larger than `collapsedHeight`
-* `moreLink: '<a href="#">Read more</a>'`
-* `lessLink: '<a href="#">Close</a>'`
-* `768` - optional maximum screen width value
-
-If the text block was shorter than the specified minimum collapsed height value, the block will not have a "Read more" link.
-
-
-## CSS:
-
-If desired, style the "Read More" and "Show Less" buttons using CSS to match your design.
-```css
-/* Styling the "Read more" button */
-.readmore-button {
-  background-color: #007BFF;
-  color: #fff;
-  padding: 5px 10px;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-/* Styling the "Collapse" Button */
-.readmore-button.collapse {
-  background-color: #FF4500;
-}
+```javascript
+document.addEventListener('DOMContentLoaded', function () {
+	initReadMore('.readmore', {
+		collapsedHeight: 200,
+		speed: 100,
+		heightMargin: 16,
+		moreLink: '<a href="#">Read More</a>',
+		lessLink: '<a href="#">Close</a>'
+	});
+});
 ```
+<br>
+
+**Initialization with additional parameters for specific screen width (e.g., 768px):**
+
+```javascript
+document.addEventListener('DOMContentLoaded', function () {
+	initReadMore('.readmore', {
+		collapsedHeight: 200,
+		speed: 100,
+		heightMargin: 16,
+		moreLink: '<a href="#">Read More</a>',
+		lessLink: '<a href="#">Close</a>'
+	}, 768);
+});
+```
+<br>
+
+## Options
+
+* `speed: 100` Defines the animation speed for changing the element's height (in milliseconds).
+* `collapsedHeight: 200` Sets the initial height of the content in a collapsed state (in pixels).
+* `heightMargin: 16` Additional height margin to ensure space when expanding the content (in pixels).
+* `moreLink: '<a href="#">Read more</a>'` HTML content of the link or button displayed to expand hidden content.
+* `lessLink: '<a href="#">Close</a>'` HTML content of the link or button displayed to collapse the content after expanding it.
+* `maxWidth` Sets the maximum screen width in pixels at which the plugin will be activated. If the screen width exceeds this value, the plugin will not activate, and the "Read More" button will not display.
+<br><br>
+## Browser Support
+
+ - **Google Chrome:** 💻 7.0+ | 📱 90+
+
+ - **Internet Explorer:** 💻 9.0+
+
+ - **Microsoft Edge:** 💻 Edge | 📱 Edge 90+
+
+ - **Mozilla Firefox:** 💻 4.0+ | 📱 89+
+
+ - **Safari:** 💻 5.1.4+ | 📱 14+
+
+ - **Opera:** 💻 12.0+ | 📱 76+
+<br><br>
+## Donation
+
+Readmore.js is an open source project licensed under the MIT license. It's completely free to use. However, it would be great if you buy me a cup of coffee once in a while to keep me awake :)
+
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN)
