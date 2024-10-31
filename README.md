@@ -1,12 +1,12 @@
 <div align="center">
 <a href="https://github.com/corgras/Readmore.js">
-<img src="https://corgras.github.io/assets/img/logo.svg" alt="Logo" width="80" height="80">
+<img src="https://corgras.github.io/assets/images/logo.svg" alt="CORGRAS" width="80" height="80">
 </a>
 <h1 align="center">Readmore.js<br>A simple and effective solution in pure JS.</h1>
 </div>
 <br>
 <div align="center">
-<img src="https://img.shields.io/badge/version-1.2.0-blue.svg" alt="Version">
+<img src="https://img.shields.io/badge/version-1.0-blue.svg" alt="Version">
 <img src="https://img.shields.io/badge/language-JavaScript-yellow.svg" alt="JavaScript">
 <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
 </div>
@@ -33,6 +33,17 @@ Then include it in your HTML:
 
 ```html
 <script src="/node_modules/readmore-javascript/dist/readmore.js"></script>
+```
+<br>
+
+## Install CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
+```
+or
+```html
+<script src="https://unpkg.com/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
 ```
 <br>
 
