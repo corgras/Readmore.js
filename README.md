@@ -6,9 +6,9 @@
 </div>
 <br>
 <div align="center">
-<img src="https://img.shields.io/badge/version-1.0-blue.svg" alt="Version">
-<img src="https://img.shields.io/badge/language-JavaScript-yellow.svg" alt="JavaScript">
-<img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/corgras/readmore.js?style=for-the-badge">
+<img alt="Language Javascript" src="https://img.shields.io/badge/language-Javascript-yellow?style=for-the-badge">
+<img alt="GitHub License" src="https://img.shields.io/github/license/corgras/readmore.js?style=for-the-badge">
 </div>
 <br>
 A smooth and responsive plugin in pure JavaScript for collapsing and expanding long text blocks. The "Read more" and "Close" buttons allow you to hide or show additional content, enhancing readability and saving space on the page. Perfect for mobile devices and convenient management of large amounts of text.
@@ -126,4 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 Readmore.js is an open source project licensed under the MIT license. It's completely free to use. However, it would be great if you buy me a cup of coffee once in a while to keep me awake :)
 
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN)
+<a href="https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN">
+<img alt="Static Badge" src="https://img.shields.io/badge/Donate-PayPal?style=for-the-badge&logo=paypal&label=PayPal&color=blue">
+</a>
