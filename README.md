@@ -47,7 +47,7 @@ or
 ```
 <br>
 
-## Install Hosting Files
+## Install Manually
 
 Download a zip of the latest release. [Download](https://github.com/corgras/Readmore.js/releases/latest)
 
