@@ -1,8 +1,9 @@
 {
-  "name": "readmore-javascript",
-  "version": "1.2.0",
+  "name": "@corgras/readmore-js",
+  "version": "1.0.0",
   "description": "A smooth and lightweight pure JavaScript plugin for collapsing long text blocks with \"Read more\" and \"Close\" buttons, enhancing readability and saving space, perfect for mobile devices.",
   "main": "readmore.js",
+  "unpkg": "readmore.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,8 +18,8 @@
     "expand",
     "plugin",
     "plugins",
-	"read-more", 
-	"read-more-button",	
+    "read-more", 
+    "read-more-button",	
     "collapse"
   ],
   "author": "RoS (CORGRAS) <corgras.dev@gmail.com>",
