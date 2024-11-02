@@ -20,12 +20,18 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
  - Content displayed with Readmore.js is fully accessible to search engines from the start, as the HTML structure remains unchanged.
 <br><br>
 
+**DOCUMENTATION DETAILED:**
+
+<a href="https://corgras.github.io/en/readmore/docs/">
+<img alt="Documentation" src="https://img.shields.io/badge/documentation%20detailed-b?style=for-the-badge&logo=googledocs&logoColor=white&logoSize=20px&labelColor=%23555&color=blue"></a>
+<br><br>
+
 ## Install NPM
 
 The recommended installation method is NPM. Install the latest version by the following command:
 
 ```
-$ npm install readmore-javascript
+$ npm i @corgras/readmore-js
 ```
 <br>
 
@@ -38,10 +44,12 @@ Then include it in your HTML:
 
 ## Install CDN
 
+You can also include this library from CDN:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
 ```
-or
+
+Alternative CDNs:
 ```html
 <script src="https://unpkg.com/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
 ```
@@ -49,7 +57,9 @@ or
 
 ## Install Manually
 
-Download a zip of the latest release. [Download](https://github.com/corgras/Readmore.js/releases/latest)
+Download a zip of the latest release. 
+
+<a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Static Badge" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
 
 Go to the `dist/` directory, and import the `readmore.min.js` file by the `<script>` tag:
 
