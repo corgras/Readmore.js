@@ -74,7 +74,7 @@ Import the `readmore.min.js` file by the `<script>` tag:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
-    initReadMore('.read-more');
+    initReadMore('.readmore');
 });
 ```
 <br>
