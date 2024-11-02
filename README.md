@@ -48,6 +48,7 @@ You can also include this library from CDN:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
 ```
+<br>
 
 Alternative CDNs:
 ```html
