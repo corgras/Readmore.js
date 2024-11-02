@@ -1,31 +1,40 @@
 {
-  "name": "@corgras/readmore-js",
-  "version": "1.0.0",
-  "description": "A smooth and lightweight pure JavaScript plugin for collapsing long text blocks with \"Read more\" and \"Close\" buttons, enhancing readability and saving space, perfect for mobile devices.",
-  "main": "readmore.js",
-  "unpkg": "readmore.min.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/corgras/Readmore.js.git"
-  },
-  "keywords": [
-    "readmore",
-    "javascript",
-    "js",
-    "expand",
-    "plugin",
-    "plugins",
-    "read-more", 
-    "read-more-button",	
-    "collapse"
-  ],
-  "author": "RoS (CORGRAS) <corgras.dev@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/corgras/Readmore.js/issues"
-  },
-  "homepage": "https://github.com/corgras/Readmore.js"
+	"name": "@corgras/readmore-js",
+	"version": "1.0.0",
+	"description": "A smooth and lightweight pure JavaScript plugin for collapsing long text blocks with \"Read more\" and \"Close\" buttons, enhancing readability and saving space, perfect for mobile devices.",
+	"main": "readmore.js",
+	"unpkg": "readmore.min.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/corgras/Readmore.js.git"
+	},
+	"keywords": [
+		"Readmore",
+		"Javascript",
+		"js",
+		"Plugin",
+		"Plugins",
+		"Read-more",
+		"Read-more-button",
+		"Text",
+		"Description",
+		"JavaScriptPlugin",
+		"FrontendDevelopment",
+		"UXDesign",
+		"OpenSource",
+		"ExpandCollapse",
+		"ReadMoreJS",
+		"JavaScriptTools",
+		"MobileFriendly",
+		"JavaScriptLibrary"
+	],
+	"author": "RoS (CORGRAS) <corgras.dev@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/corgras/Readmore.js/issues"
+	},
+	"homepage": "https://github.com/corgras/Readmore.js"
 }
