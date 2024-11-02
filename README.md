@@ -38,7 +38,7 @@ $ npm i @corgras/readmore-js
 Then include it in your HTML:
 
 ```html
-<script src="/node_modules/readmore-javascript/dist/readmore.js"></script>
+<script src="/node_modules/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
 
@@ -59,9 +59,9 @@ Alternative CDNs:
 
 Download a zip of the latest release. 
 
-<a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Static Badge" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
+<a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
 
-Go to the `dist/` directory, and import the `readmore.min.js` file by the `<script>` tag:
+Import the `readmore.min.js` file by the `<script>` tag:
 
 ```html
 <script src="readmore.min.js"></script>
@@ -137,5 +137,5 @@ document.addEventListener('DOMContentLoaded', function () {
 Readmore.js is an open source project licensed under the MIT license. It's completely free to use. However, it would be great if you buy me a cup of coffee once in a while to keep me awake :)
 
 <a href="https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN">
-<img alt="Static Badge" src="https://img.shields.io/badge/Donate-PayPal?style=for-the-badge&logo=paypal&label=PayPal&color=blue">
+<img alt="Donate" src="https://img.shields.io/badge/Donate-PayPal?style=for-the-badge&logo=paypal&label=PayPal&color=blue">
 </a>
