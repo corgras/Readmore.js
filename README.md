@@ -28,6 +28,8 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 
 ## Install NPM
 
+**Temporarily out of service.
+
 The recommended installation method is NPM. Install the latest version by the following command:
 
 ```
@@ -43,6 +45,8 @@ Then include it in your HTML:
 <br>
 
 ## Install CDN
+
+**Temporarily out of service.
 
 You can also include this library from CDN:
 ```html
