@@ -26,9 +26,7 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 <img alt="Documentation" src="https://img.shields.io/badge/documentation%20detailed-b?style=for-the-badge&logo=googledocs&logoColor=white&logoSize=20px&labelColor=%23555&color=blue"></a>
 <br><br>
 
-## Install NPM
-
-**Temporarily out of service.
+## Install NPM - Temporarily out of service
 
 The recommended installation method is NPM. Install the latest version by the following command:
 
@@ -44,9 +42,7 @@ Then include it in your HTML:
 ```
 <br>
 
-## Install CDN
-
-**Temporarily out of service.
+## Install CDN - Temporarily out of service
 
 You can also include this library from CDN:
 ```html
