@@ -26,7 +26,7 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 <img alt="Documentation" src="https://img.shields.io/badge/documentation%20detailed-b?style=for-the-badge&logo=googledocs&logoColor=white&logoSize=20px&labelColor=%23555&color=blue"></a>
 <br><br>
 
-## Install NPM - Temporarily out of service
+## Install NPM
 
 The recommended installation method is NPM. Install the latest version by the following command:
 
@@ -42,17 +42,17 @@ Then include it in your HTML:
 ```
 <br>
 
-## Install CDN - Temporarily out of service
+## Install CDN
 
 You can also include this library from CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@1.1.0/readmore.min.js"></script>
 ```
 <br>
 
 Alternative CDNs:
 ```html
-<script src="https://unpkg.com/@corgras/readmore-js@1.0.0/readmore.min.js"></script>
+<script src="https://unpkg.com/@corgras/readmore-js@1.1.0/readmore.min.js"></script>
 ```
 <br>
 

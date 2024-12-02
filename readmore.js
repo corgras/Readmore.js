@@ -1,5 +1,5 @@
 /*!
- * Readmore.js v1.0.0 - JavaScript plugin
+ * Readmore.js v1.1.0 - JavaScript plugin
  * Author: @RoS (CORGRAS)
  * Project home: https://corgras.github.io/readmore/
  * Github: https://github.com/corgras/Readmore.js
