@@ -1,0 +1,24 @@
+.cs_readmore-btn-wrapper {
+	margin: 15px auto 0;
+	text-align: center;
+}
+.cs_readmore-btn-wrapper:before {
+	border-top: 1px solid #ddd;
+	content: '';
+	display: block;
+	width: 100%;
+	z-index: -1;
+    position: relative;
+	transform: translateY(15px);
+}
+.cs_readmore-btn {
+	color: #005EFF;
+	background: #fff;
+	border: 0;
+	margin: 0;
+	padding: 0 20px;
+	text-align: center;
+}
+.cs_readmore-btn:hover {
+	color: #0051DE;
+}
