@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		speed: 200,
 		heightMargin: 16,
 		moreLink: '<span>Read More</span>',
-		lessLink: '<span>Close</span>'
+		lessLink: '<span>Close</span>',
 		breakpoints: {
 			576: {
 				collapsedSize: 100,
