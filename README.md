@@ -38,7 +38,6 @@ $ npm i @corgras/readmore-js
 Then include it in your HTML:
 
 ```html
-<link rel="stylesheet" href="/node_modules/@corgras/readmore-js/readmore.css">
 <script src="/node_modules/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
@@ -47,14 +46,12 @@ Then include it in your HTML:
 
 You can also include this library from CDN:
 ```html
-<link href="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.0.0/readmore.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.0.0/readmore.min.js"></script>
 ```
 <br>
 
 Alternative CDNs:
 ```html
-<link href="https://unpkg.com/@corgras/readmore-js@2.0.0/readmore.css" rel="stylesheet">
 <script src="https://unpkg.com/@corgras/readmore-js@2.0.0/readmore.min.js"></script>
 ```
 <br>
@@ -65,10 +62,9 @@ Download a zip of the latest release.
 
 <a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
 
-Import `readmore.min.js` and `readmore.css` file:
+Import the `readmore.min.js` file by the `<script>` tag:
 
 ```html
-<link rel="stylesheet" href="readmore.css">
 <script src="readmore.min.js"></script>
 ```
 <br>
@@ -197,6 +193,38 @@ You can familiarize yourself with the CSS classes and data attributes used in th
 
 * `data-readmore-btn-toggle'` Applied to the «Read More» or «Close» button. Used to track the button's state. The attribute stores the button state: `collapsed` — the button is in the collapsed state; `expanded` — the button is in the expanded state.
 * `data-readmore-block-toggle` Applied to the element containing the content. Helps track the current state of the content (collapsed or expanded). The attribute manages the content block's state: `collapsed` — the block is collapsed. `expanded` — the block is expanded.
+<br>
+<br>
+**Example of Styling**
+
+The code creates styles for the button container and the button itself, adding padding, text alignment, and user interaction styles, including color changes on hover.
+
+```css
+.cs_readmore-btn-wrapper {
+	margin: 15px auto 0;
+	text-align: center;
+}
+.cs_readmore-btn-wrapper:before {
+	border-top: 1px solid #ddd;
+	content: '';
+	display: block;
+	width: 100%;
+	z-index: -1;
+	position: relative;
+	transform: translateY(15px);
+}
+.cs_readmore-btn {
+	color: #005EFF;
+	background: #fff;
+	border: 0;
+	margin: 0;
+	padding: 0 20px;
+	text-align: center;
+}
+.cs_readmore-btn:hover {
+	color: #0051DE;
+}
+```
 <br><br>
 
 ## Browser Support

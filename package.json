@@ -4,7 +4,6 @@
 	"description": "A smooth and lightweight pure JavaScript plugin for collapsing long text blocks with \"Read more\" and \"Close\" buttons, enhancing readability and saving space, perfect for mobile devices.",
 	"main": "readmore.js",
 	"unpkg": "readmore.min.js",
-	"style": "readmore.css"
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
