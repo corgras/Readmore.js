@@ -194,7 +194,7 @@ You can familiarize yourself with the CSS classes and data attributes used in th
 * `data-readmore-btn-toggle'` Applied to the «Read More» or «Close» button. Used to track the button's state. The attribute stores the button state: `collapsed` — the button is in the collapsed state; `expanded` — the button is in the expanded state.
 * `data-readmore-block-toggle` Applied to the element containing the content. Helps track the current state of the content (collapsed or expanded). The attribute manages the content block's state: `collapsed` — the block is collapsed. `expanded` — the block is expanded.
 <br>
-<br>
+
 **Example of Styling**
 
 The code creates styles for the button container and the button itself, adding padding, text alignment, and user interaction styles, including color changes on hover.
