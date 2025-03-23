@@ -9,6 +9,7 @@
 <img alt="GitHub Release" src="https://img.shields.io/github/v/release/corgras/readmore.js?style=for-the-badge">
 <img alt="Language Javascript" src="https://img.shields.io/badge/language-Javascript-yellow?style=for-the-badge">
 <img alt="GitHub License" src="https://img.shields.io/github/license/corgras/readmore.js?style=for-the-badge">
+<a href="https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN"><img alt="Donate" src="https://img.shields.io/badge/Donate-PayPal?style=for-the-badge&logo=paypal&label=PayPal&color=blue"></a>
 </div>
 <br>
 A smooth and responsive plugin in pure JavaScript for collapsing and expanding long text blocks. The «Read More» or «Close» buttons allow you to hide or show additional content, enhancing readability and saving space on the page. Perfect for mobile devices and convenient management of large amounts of text.
@@ -38,7 +39,7 @@ $ npm i @corgras/readmore-js
 Then include it in your HTML:
 
 ```html
-<script src="/node_modules/@corgras/readmore-js/readmore.min.js"></script>
+<script src="./node_modules/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
 
@@ -46,15 +47,32 @@ Then include it in your HTML:
 
 You can also include this library from CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.0.0/readmore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
 ```
 <br>
 
 Alternative CDNs:
 ```html
-<script src="https://unpkg.com/@corgras/readmore-js@2.0.0/readmore.min.js"></script>
+<script src="https://unpkg.com/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
 ```
 <br>
+
+## Install Node.js/CommonJS
+
+Requires prior installation via NPM:
+```html
+const { initReadMore } = require('@corgras/readmore-js')
+```
+<br>
+
+## Install ES Modules
+
+Requires prior installation via NPM and a module bundler (e.g., Webpack, Rollup, or Vite):
+```html
+import { initReadMore } from '@corgras/readmore-js'
+```
+<br>
+
 
 ## Install Manually
 
@@ -129,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
 * `heightMargin: 16` Additional height margin to ensure space when expanding the content (in pixels).
 * `moreLink: '<span>Read more</span>'` The «Read More» button text with HTML support. Used inside the <button> element, which is displayed to expand hidden content.
 * `lessLink: '<span>Close</span>'` The «Close» button text with HTML support. Used inside the <button> element, which is displayed to collapse content after it has been expanded.
-* `lazyLoad: true/false` When enabled, elements (content or media) will only be initialized when they appear in the viewport.
 * `hideButtonCollapse: true/false` If set to true, the «Read More» button is not displayed when the entire content fits in the visible area without needing to be collapsed.
 * `animationMode: 'js'` Animation mode for height change: js — use JavaScript animation; css — CSS animation is used. When this mode is activated, the class cs_readmore-animation is added to the element.
 * `breakpoints: {}` Allows specifying different values for other options depending on the screen width. Keys are screen widths (in pixels), and values are objects with new option values.

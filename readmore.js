@@ -1,306 +1,291 @@
 /*!
- * Readmore.js v2.0.0 - JavaScript plugin
+ * Readmore.js v2.1.0 - JavaScript plugin
  * Author: @RoS (CORGRAS)
  * Project home: https://corgras.github.io/readmore/
  * Github: https://github.com/corgras/Readmore.js
  * Licensed under the MIT license
  */
-function initReadMore(selector, userOptions = {}) {
-	const defaults = {
-		// Default collapsed height
-		// Высота по умолчанию при сворачивании
-		// Висота за замовчуванням при згортанні
-		collapsedHeight: 200,
 
-		// Animation speed in ms
-		// Скорость анимации в миллисекундах
-		// Швидкість анімації в мілісекундах
-		speed: 100,
-
-		// Default 'Read More' link
-		// Ссылка "Читать больше" по умолчанию
-		// Посилання "Читати більше" за замовчуванням
-		moreLink: '<span>Read More</span>',
-
-		// Default 'Close' link
-		// Ссылка "Закрыть" по умолчанию
-		// Посилання "Закрити" за замовчуванням
-		lessLink: '<span>Close</span>',
-
-		// Breakpoints for responsive design
-		// Точки останова для адаптивного дизайна
-		// Точки зупинки для адаптивного дизайну
-		breakpoints: {},
-
-		// Lazy load option
-		//Опция ленивой загрузки
-		// Опція лінійного завантаження
-		lazyLoad: false,
-
-		// Option to hide collapse button
-		// Опция скрыть кнопку сворачивания
-		// Опція приховати кнопку згортання
-		hideButtonCollapse: false,
-
-		// Animation mode (CSS or JS)
-		// Режим анимации (CSS или JS)
-		// Режим анімації (CSS або JS)
-		animationMode: 'js',
-
-		// Callback before toggle (expand/collapse)
-		beforeToggle: null,
-
-		// Callback after toggle (expand/collapse)
-		afterToggle: null,
-
-		// Block processed callback
-		blockProcessed: null
-	};
-
-	const options = { ...defaults, ...userOptions };
-	const elements = document.querySelectorAll(selector);
-
-	// Function to get options based on current screen width
-	// Функція для отримання налаштувань для поточної ширини
-	// Функция для получения настроек для текущей ширины
-	function getOptionsForWidth(width) {
-		const breakpoints = options.breakpoints;
-		const breakpointKeys = Object.keys(breakpoints).map(Number).sort((a, b) => b - a);
-
-		for (let key of breakpointKeys) {
-			if (width <= key) {
-				return { ...options, ...breakpoints[key] };
-			}
-		}
-		return options;
-	}
-
-	// Resize handler with slight delay for optimization
-	// Обработчик изменения размера с небольшой задержкой для оптимизации
-	// Обробник зміни розміру з невеликою затримкою для оптимізації
-	let resizeTimeout;
-	function handleResize() {
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(() => {
-			const windowWidth = window.innerWidth;
-			const currentOptions = getOptionsForWidth(windowWidth);
-
-			elements.forEach(element => {
-				initializeReadMore(element, currentOptions);
-			});
-		}, 100);
-	}
-
-	// Main logic for initializing Read More functionality
-	// Основная логика инициализации функции Read More
-	// Головна логіка ініціалізації функції Read More
-	function initializeReadMore(element, currentOptions) {
-		let isExpanded = false;
-
-		// Full content inside the element
-		// Полный контент внутри элемента
-		// Повний контент всередині елемента
-		const fullContent = element.innerHTML;
-
-		// Height of the content
-		// Высота контента
-		// Висота контенту
-		const contentHeight = element.scrollHeight;
-
-		// Collapsed height from options
-		// Высота сворачивания из настроек
-		// Висота згортання з налаштувань
-		const collapsedHeight = currentOptions.collapsedHeight;
-
-		// Animation speed from options
-		// Скорость анимации из настроек
-		// Швидкість анімації з налаштувань
-		const speed = currentOptions.speed;
-
-		// 'Read More' link from options
-		// Ссылка "Читать больше" из настроек
-		// Посилання "Читати більше" з налаштувань
-		const moreLink = currentOptions.moreLink;
-
-		// 'Close' link from options
-		// Ссылка "Закрыть" из настроек
-		// Посилання "Закрити" з налаштувань
-		const lessLink = currentOptions.lessLink;
-
-		// Hide collapse button option from options
-		// Опция скрыть кнопку сворачивания из настроек
-		// Опція приховати кнопку згортання з налаштувань
-		const hideButtonCollapse = currentOptions.hideButtonCollapse;
-
-		// Animation mode from options
-		// Режим анимации из настроек
-		// Режим анімації з налаштувань
-		const animationMode = currentOptions.animationMode;
-
-		const adjustedHeight = contentHeight;
-
-		// Create "Read More" button
-		// Создание кнопки "Читать больше"
-		// Створення кнопки "Читати більше"
-		const buttonWrapper = document.createElement('div');
-		buttonWrapper.classList.add('cs_readmore-btn-wrapper');
-
-		const toggleBtn = document.createElement('button');
-		toggleBtn.innerHTML = sanitizeHTML(moreLink);
-		toggleBtn.classList.add('cs_readmore-btn');
-		toggleBtn.setAttribute('data-readmore-btn-toggle', 'collapsed');
-		toggleBtn.type = 'button';
-		buttonWrapper.appendChild(toggleBtn);
-
-		// Initial styles and height adjustments
-		// Начальные стили и корректировка высоты
-		// Початкові стилі та коригування висоти
-		element.style.overflow = 'hidden';
-		element.style.height = collapsedHeight + 'px';
-		element.setAttribute('data-readmore-block-toggle', 'collapsed');
-
-		if (animationMode === 'css') {
-			element.classList.add('cs_readmore-animation');
-		} else {
-			element.style.transition = `height ${speed}ms ease-in-out`;
-		}
-
-		if (!element.nextElementSibling || !element.nextElementSibling.classList.contains('cs_readmore-btn-wrapper')) {
-			element.parentNode.insertBefore(buttonWrapper, element.nextSibling);
-		}
-
-		// Check if content height is less than or equal to collapsedHeight
-		// Проверяем, если высота контента меньше или равна высоте сворачивания
-		// Перевіряємо, чи висота контенту менша або дорівнює висоті згортання
-		if (adjustedHeight <= collapsedHeight) {
-			// Hide the "Read More" button and set height to auto
-			// Скрываем кнопку "Читать далее" и устанавливаем высоту в auto
-			// Приховуємо кнопку "Читати більше" та встановлюємо висоту в auto
-			buttonWrapper.style.display = 'none';
-
-			// Set height to auto to show the full content
-			// Устанавливаем высоту в auto, чтобы показать весь контент
-			// Встановлюємо висоту в auto, щоб показати весь контент
-			element.style.height = 'auto';
-		}
-
-		// Button click handler
-		// Обработчик клика по кнопке
-		// Обробник кліка по кнопці
-		toggleBtn.addEventListener('click', (e) => {
-			e.preventDefault();
-			isExpanded = !isExpanded;
-
-			// Trigger beforeToggle event
-			// Триггер события beforeToggle
-			// Запуск події beforeToggle
-			if (currentOptions.beforeToggle) {
-				currentOptions.beforeToggle(toggleBtn, element, isExpanded);
-			}
-			element.dispatchEvent(new CustomEvent('readmore:beforeToggle'));
-
-			// Perform the toggle action
-			// Выполнение действия переключения
-			// Виконання дії перемикання
-			if (isExpanded) {
-				element.style.height = adjustedHeight + 'px';
-				toggleBtn.innerHTML = sanitizeHTML(lessLink);
-				element.setAttribute('data-readmore-block-toggle', 'expanded');
-				toggleBtn.setAttribute('data-readmore-btn-toggle', 'expanded');
-
-				if (hideButtonCollapse) {
-					buttonWrapper.style.display = 'none';
-				}
-			} else {
-				element.style.height = collapsedHeight + 'px';
-				toggleBtn.innerHTML = sanitizeHTML(moreLink);
-				element.setAttribute('data-readmore-block-toggle', 'collapsed');
-				toggleBtn.setAttribute('data-readmore-btn-toggle', 'collapsed');
-			}
-
-			// Trigger afterToggle event
-			// Триггер события afterToggle
-			// Запуск події afterToggle
-			if (currentOptions.afterToggle) {
-				currentOptions.afterToggle(toggleBtn, element, isExpanded);
-			}
-			element.dispatchEvent(new CustomEvent('readmore:afterToggle'));
-		});
-
-		// Block processed callback
-		// Обработка блока завершена
-		// Обробка блоку завершена
-		if (currentOptions.blockProcessed) {
-			currentOptions.blockProcessed(element, adjustedHeight > collapsedHeight);
-		}
-	}
-
-	// Lazy load initialization
-	// Инициализация для ленивой загрузки
-	// Ініціалізація для лінійного завантаження
-	if (options.lazyLoad) {
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting && !entry.target.hasAttribute('data-readmore-processed')) {
-					if (entry.target.matches('img, video, audio')) {
-						// For multimedia: loading the corresponding data
-						// Для мультимедиа: загрузка соответствующих данных
-						// Для мультимедіа: завантаження відповідних даних
-						const lazySource = entry.target.getAttribute('data-src');
-						if (lazySource) {
-							entry.target.src = lazySource;
-						}
-						if (entry.target.tagName === 'VIDEO' || entry.target.tagName === 'AUDIO') {
-							entry.target.load();
-						}
-					} else {
-						// For content (eg text)
-						// Для контента (например, текста)
-						// Для контенту (наприклад, тексту)
-						initializeReadMore(entry.target, getOptionsForWidth(window.innerWidth));
-					}
-					entry.target.setAttribute('data-readmore-processed', 'true');
-				}
-			});
-		});
-
-		elements.forEach(element => observer.observe(element));
+(function (global, factory) {
+	// UMD wrapper to support different environments (AMD, CommonJS, browser globals)
+	// UMD-обёртка для поддержки разных сред (AMD, CommonJS, глобальные переменные браузера)
+	// UMD-обгортка для підтримки різних середовищ (AMD, CommonJS, глобальні змінні браузера)
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define([], factory);
+	} else if (typeof exports !== 'undefined') {
+		// Node.js/CommonJS
+		module.exports = factory();
 	} else {
-		elements.forEach(element => {
-			if (element.matches('img, video, audio')) {
-				// Load media immediately
-				// Сразу загружаем мультимедиа
-				// Відразу завантажуємо мультимедіа
-				const lazySource = element.getAttribute('data-src');
-				if (lazySource) {
-					element.src = lazySource;
+		// Browser globals
+		global.initReadMore = factory();
+	}
+})(typeof self !== 'undefined' ? self : this, function () {
+	'use strict';
+
+	function initReadMore(selector, userOptions = {}) {
+		// Default configuration options for the "Read More" functionality
+		// Конфигурация по умолчанию для функционала "Читать дальше"
+		// Конфігурація за замовчуванням для функціоналу "Читати далі"
+		const defaults = {
+			collapsedHeight: 200,
+			speed: 100,
+			moreLink: '<span>Read More</span>',
+			lessLink: '<span>Close</span>',
+			breakpoints: {},
+			hideButtonCollapse: false,
+			animationMode: 'js',
+			beforeToggle: null,
+			afterToggle: null,
+			blockProcessed: null
+		};
+
+		// Merge default and user options with error handling
+		// Объединение опций по умолчанию и пользовательских с обработкой ошибок
+		// Об’єднання опцій за замовчуванням та користувацьких з обробкою помилок
+		let options;
+		try {
+			options = { ...defaults, ...userOptions };
+		} catch (error) {
+			console.error('Error merging options:', error);
+			options = { ...defaults };
+		}
+
+		let elements;
+		try {
+			elements = Array.from(document.querySelectorAll(selector));
+			if (!elements.length) throw new Error('Elements not found');
+		} catch (error) {
+			console.error('Error selecting elements:', error);
+			return;
+		}
+
+		// Optimized resize handler with debounce to prevent excessive updates
+		// Оптимизированный обработчик изменения размера с debounce для предотвращения лишних обновлений
+		// Оптимізований обробник зміни розміру з debounce для запобігання надмірним оновленням
+		let resizeTimeout;
+		const handleResize = () => {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				const windowWidth = window.innerWidth;
+				const currentOptions = getOptionsForWidth(windowWidth);
+				elements.forEach(element => updateElement(element, currentOptions));
+			}, 100);
+		};
+
+		// Get options based on current window width (handles responsive breakpoints)
+		// Получение опций на основе текущей ширины окна (обработка адаптивных точек останова)
+		// Отримання опцій на основі поточної ширини вікна (обробка адаптивних точок зупинки)
+		const getOptionsForWidth = (width) => {
+			try {
+				const breakpoints = options.breakpoints;
+				const breakpointKeys = Object.keys(breakpoints)
+					.map(Number)
+					.sort((a, b) => b - a);
+
+				for (const key of breakpointKeys) {
+					if (width <= key) {
+						return { ...options, ...breakpoints[key] };
+					}
 				}
-				if (element.tagName === 'VIDEO' || element.tagName === 'AUDIO') {
-					element.load();
-				}
-			} else {
-				// Initialize the content immediately
-				// Сразу инициализируем контент
-				// Відразу ініціалізуємо контент
-				initializeReadMore(element, options);
+				return options;
+			} catch (error) {
+				console.error('Error in getOptionsForWidth:', error);
+				return options;
 			}
-		});
+		};
+
+		// Main function to update each element’s "Read More" behavior
+		// Основная функция обновления поведения "Читать дальше" для каждого элемента
+		// Основна функція оновлення поведінки "Читати далі" для кожного елемента
+		const updateElement = (element, currentOptions) => {
+			try {
+				if (element.dataset.readmoreProcessed) {
+					cleanupElement(element);
+				}
+
+				const fullHeight = element.scrollHeight;
+				const collapsedHeight = Math.min(currentOptions.collapsedHeight, fullHeight);
+				const needsToggle = fullHeight > collapsedHeight;
+
+				const buttonWrapper = createButtonWrapper(currentOptions, needsToggle);
+				const toggleBtn = buttonWrapper.querySelector('.cs_readmore-btn');
+
+				initializeStyles(element, collapsedHeight, currentOptions);
+
+				if (!needsToggle) {
+					element.style.height = 'auto';
+					element.removeAttribute('aria-hidden');
+					buttonWrapper.style.display = 'none';
+					return;
+				}
+
+				setupToggleHandler(element, toggleBtn, currentOptions, collapsedHeight);
+
+				if (!element.nextElementSibling?.classList?.contains('cs_readmore-btn-wrapper')) {
+					element.after(buttonWrapper);
+				}
+
+				element.dataset.readmoreProcessed = 'true';
+				element.setAttribute('aria-expanded', 'false');
+
+				currentOptions.blockProcessed?.(element, needsToggle);
+
+			} catch (error) {
+				console.error('Error updating element:', error);
+			}
+		};
+
+		// Create the button wrapper and toggle button
+		// Создание обёртки кнопки и кнопки переключения
+		// Створення обгортки кнопки та кнопки перемикання
+		const createButtonWrapper = (currentOptions, needsToggle) => {
+			const wrapper = document.createElement('div');
+			wrapper.classList.add('cs_readmore-btn-wrapper');
+
+			const btn = document.createElement('button');
+			btn.innerHTML = sanitizeHTML(currentOptions.moreLink);
+			btn.classList.add('cs_readmore-btn');
+			btn.type = 'button';
+			btn.setAttribute('aria-expanded', 'false');
+			btn.setAttribute('aria-controls', 'readmore-' + Math.random().toString(36).substr(2, 9));
+			btn.dataset.readmoreBtnToggle = 'collapsed';
+			wrapper.appendChild(btn);
+
+			if (!needsToggle) wrapper.style.display = 'none';
+			return wrapper;
+		};
+
+		// Apply initial styles to the element for collapsing
+		// Применение начальных стилей к элементу для сворачивания
+		// Застосування початкових стилів до елемента для згортання
+		const initializeStyles = (element, collapsedHeight, currentOptions) => {
+			element.style.overflow = 'hidden';
+			element.style.height = `${collapsedHeight}px`;
+			element.dataset.readmoreBlockToggle = 'collapsed';
+			element.setAttribute('role', 'region');
+
+			if (currentOptions.animationMode === 'css') {
+				element.classList.add('cs_readmore-animation');
+			} else {
+				element.style.transition = `height ${currentOptions.speed}ms ease-in-out`;
+			}
+		};
+
+		// Set up the toggle button click handler for expanding/collapsing
+		// Настройка обработчика клика кнопки для разворачивания/сворачивания
+		// Налаштування обробника кліку кнопки для розгортання/згортання
+		const setupToggleHandler = (element, toggleBtn, currentOptions, collapsedHeight) => {
+			let isExpanded = false;
+
+			toggleBtn.onclick = (e) => {
+				e.preventDefault();
+				isExpanded = !isExpanded;
+
+				try {
+					currentOptions.beforeToggle?.(toggleBtn, element, isExpanded);
+					element.dispatchEvent(new CustomEvent('readmore:beforeToggle'));
+
+					if (isExpanded) {
+						const clone = element.cloneNode(true);
+						clone.style.height = 'auto';
+						clone.style.position = 'absolute';
+						clone.style.visibility = 'hidden';
+						document.body.appendChild(clone);
+						const fullHeight = clone.scrollHeight;
+						document.body.removeChild(clone);
+
+						element.style.height = `${fullHeight}px`;
+						setTimeout(() => {
+							element.style.height = 'auto';
+							element.removeAttribute('aria-hidden');
+						}, currentOptions.speed);
+					} else {
+						element.style.height = `${collapsedHeight}px`;
+						element.setAttribute('aria-hidden', 'true');
+					}
+
+					toggleBtn.innerHTML = sanitizeHTML(isExpanded ? 
+						currentOptions.lessLink : 
+						currentOptions.moreLink);
+
+					element.dataset.readmoreBlockToggle = isExpanded ? 'expanded' : 'collapsed';
+					toggleBtn.dataset.readmoreBtnToggle = isExpanded ? 'expanded' : 'collapsed';
+					element.setAttribute('aria-expanded', isExpanded.toString());
+					toggleBtn.setAttribute('aria-expanded', isExpanded.toString());
+
+					if (isExpanded && currentOptions.hideButtonCollapse) {
+						toggleBtn.parentElement.style.display = 'none';
+					} else {
+						toggleBtn.parentElement.style.display = 'block';
+					}
+
+					currentOptions.afterToggle?.(toggleBtn, element, isExpanded);
+					element.dispatchEvent(new CustomEvent('readmore:afterToggle'));
+
+				} catch (error) {
+					console.error('Error during toggle:', error);
+					isExpanded = !isExpanded;
+				}
+			};
+		};
+
+		// Clean up styles and event listeners from an element
+		// Очистка стилей и слушателей событий с элемента
+		// Очищення стилів та слухачів подій з елемента
+		const cleanupElement = (element) => {
+			const wrapper = element.nextElementSibling;
+			if (wrapper?.classList.contains('cs_readmore-btn-wrapper')) {
+				wrapper.remove();
+			}
+			element.style.height = '';
+			element.style.transition = '';
+			element.style.overflow = '';
+			element.classList.remove('cs_readmore-animation');
+			element.removeAttribute('aria-expanded');
+			element.removeAttribute('aria-hidden');
+			element.removeAttribute('role');
+			delete element.dataset.readmoreProcessed;
+			delete element.dataset.readmoreBlockToggle;
+		};
+
+		// Sanitize HTML to prevent XSS attacks
+		// Очистка HTML для предотвращения XSS-атак
+		// Очищення HTML для запобігання XSS-атакам
+		const sanitizeHTML = (html) => {
+			try {
+				const temp = document.createElement('div');
+				temp.innerHTML = html;
+				return temp.innerHTML
+					.replace(/on\w+="[^"]*"/g, '')
+					.replace(/javascript:/g, '');
+			} catch (error) {
+				console.error('Error sanitizing HTML:', error);
+				return html;
+			}
+		};
+
+		// Initialize the "Read More" functionality and attach resize listener
+		// Инициализация функционала "Читать дальше" и подключение слушателя изменения размера
+		// Ініціалізація функціоналу "Читати далі" та підключення слухача зміни розміру
+		try {
+			const initialOptions = getOptionsForWidth(window.innerWidth);
+			elements.forEach(element => updateElement(element, initialOptions));
+			window.addEventListener('resize', handleResize);
+		} catch (error) {
+			console.error('Error during initialization:', error);
+		}
+
+		// Return an object with a destroy method to clean up
+		// Возвращение объекта с методом destroy для очистки
+		// Повернення об’єкта з методом destroy для очищення
+		return {
+			destroy: () => {
+				window.removeEventListener('resize', handleResize);
+				elements.forEach(cleanupElement);
+			}
+		};
 	}
 
-	// Resize event listener
-	// Обработчик изменения размера
-	// Обробник зміни розміру
-	window.addEventListener('resize', handleResize);
-	handleResize();
-
-	// HTML sanitization function to remove unsafe attributes
-	// Функция очистки HTML от небезопасных атрибутов
-	// Функція очищення HTML від небезпечних атрибутів
-	function sanitizeHTML(inputHTML) {
-		const tempDiv = document.createElement('div');
-		tempDiv.innerHTML = inputHTML;
-		let sanitizedHTML = tempDiv.innerHTML;
-		sanitizedHTML = sanitizedHTML.replace(/on\w+="[^"]*"/g, '').replace(/javascript:/g, '');
-		return sanitizedHTML;
-	}
-}
+	return initReadMore;
+});
