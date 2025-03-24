@@ -104,6 +104,20 @@
 					cleanupElement(element);
 				}
 
+				// Check if the content is effectively empty
+				const content = element.innerHTML.trim();
+				const isEmpty = content === '' || 
+					content === '<p></p>' || 
+					content === '<p><br></p>' || 
+					content === '<br>' || 
+					/^\s+$/.test(content);
+
+				if (isEmpty) {
+					element.style.height = 'auto';
+					element.removeAttribute('aria-hidden');
+					return; // Exit early if content is empty
+				}
+
 				const fullHeight = element.scrollHeight;
 				const collapsedHeight = Math.min(currentOptions.collapsedHeight, fullHeight);
 				const needsToggle = fullHeight > collapsedHeight;
