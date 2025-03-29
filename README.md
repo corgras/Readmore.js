@@ -31,7 +31,7 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 
 The recommended installation method is NPM. Install the latest version by the following command:
 
-```
+```bash
 $ npm i @corgras/readmore-js
 ```
 <br>
@@ -47,20 +47,20 @@ Then include it in your HTML:
 
 You can also include this library from CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.1/readmore.min.js"></script>
 ```
 <br>
 
 Alternative CDNs:
 ```html
-<script src="https://unpkg.com/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
+<script src="https://unpkg.com/@corgras/readmore-js@2.1.1/readmore.min.js"></script>
 ```
 <br>
 
 ## Install Node.js/CommonJS
 
 Requires prior installation via NPM:
-```html
+```javascript
 const { initReadMore } = require('@corgras/readmore-js')
 ```
 <br>
@@ -68,7 +68,7 @@ const { initReadMore } = require('@corgras/readmore-js')
 ## Install ES Modules
 
 Requires prior installation via NPM and a module bundler (e.g., Webpack, Rollup, or Vite):
-```html
+```javascript
 import { initReadMore } from '@corgras/readmore-js'
 ```
 <br>
@@ -90,7 +90,11 @@ Import the `readmore.min.js` file by the `<script>` tag:
 ## Usage
 
 **Initialization without additional parameters:**
-
+```html
+<div class="readmore">
+	<p>Long content here...</p>
+</div>
+```
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
     initReadMore('.readmore');
@@ -103,9 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
 	initReadMore('.readmore', {
-		collapsedHeight: 200,
-		speed: 100,
-		heightMargin: 16,
+		collapsedHeight: 250,
+		speed: 300,
 		moreLink: '<span>Read More</span>',
 		lessLink: '<span>Close</span>'
 	});
@@ -118,20 +121,19 @@ document.addEventListener('DOMContentLoaded', function () {
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
 	initReadMore('.readmore', {
-		collapsedSize: 200,
-		speed: 200,
-		heightMargin: 16,
+		collapsedHeight: 250,
+		speed: 300,
 		moreLink: '<span>Read More</span>',
 		lessLink: '<span>Close</span>',
 		breakpoints: {
 			576: {
-				collapsedSize: 100,
+				collapsedHeight: 100,
 				speed: 200,
 				moreLink: '<span>More</span>',
 				lessLink: '<span>Collapse</span>',
 			},
 			768: {
-				collapsedSize: 150,
+				collapsedHeight: 150,
 				speed: 250,
 			},
 		}
@@ -140,25 +142,37 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 <br>
 
+**Destroying the plugin:**
+
+```javascript
+const readmore = initReadMore('.readmore');
+readmore.destroy(); // Removes event listeners and resets styles
+```
+<br>
+
 ## Options
 
-* `speed: 100` Defines the speed of the height change animation (in milliseconds).
-* `collapsedHeight: 200` Sets the initial content height in collapsed state (in pixels).
-* `heightMargin: 16` Additional height margin to ensure space when expanding the content (in pixels).
+* `collapsedHeight: 250` Sets the initial content height in collapsed state (in pixels).
+* `speed: 300` Defines the speed of the height change animation (in milliseconds).
 * `moreLink: '<span>Read more</span>'` The «Read More» button text with HTML support. Used inside the <button> element, which is displayed to expand hidden content.
 * `lessLink: '<span>Close</span>'` The «Close» button text with HTML support. Used inside the <button> element, which is displayed to collapse content after it has been expanded.
-* `hideButtonCollapse: true/false` If set to true, the «Read More» button is not displayed when the entire content fits in the visible area without needing to be collapsed.
-* `animationMode: 'js'` Animation mode for height change: js — use JavaScript animation; css — CSS animation is used. When this mode is activated, the class cs_readmore-animation is added to the element.
-* `breakpoints: {}` Allows specifying different values for other options depending on the screen width. Keys are screen widths (in pixels), and values are objects with new option values.
+* `hideButtonCollapse: true/false` If `true`, hides the button when content is fully expanded.
+* `animationMode: 'js'` Animation mode for height change: `'js'` — use JavaScript animation; `'css'` — CSS animation is used (requires `.cs_readmore-animation` with custom CSS animations).
+* `animationType: 'ease-in-out'` Defines the timing function for JavaScript-based animation (works with `animationMode: 'js'`). Options: `'linear'`, `'ease'`, `'ease-in'`, `'ease-out'`, `'ease-in-out'`.
+* `scrollToTopOnCollapse: true/false` If set to true, the page automatically scrolls to the top of the content element when collapsing it. Useful for ensuring the content remains in view after collapsing.
+* `breakpoints: {}` Customize options for different screen widths. Keys are max-width breakpoints (in pixels); settings apply when the window width is less than or equal to the key.
+* `beforeToggle: null` Callback function called before toggling the state.
+* `afterToggle: null` Callback function called after toggling the state.
+* `blockProcessed: null` Callback function called after processing each element.
 <br><br>
 
 ## Events
 
-Readmore.js generates two primary events: `readmore:beforeToggle` and `readmore:afterToggle`. These events can be listened to and used to add custom logic during the element's state transition.
+Readmore.js generates two events: `readmore:beforeToggle` and `readmore:afterToggle`. These can be used to add custom logic during state transitions.
 
-* `readmore:beforeToggle` This event is triggered before the element's state changes. It allows configuring behavior before the state is modified.
+* `readmore:beforeToggle` Triggered before the element's state changes
 
-* `readmore:afterToggle` This event is triggered after the element's state changes. It allows actions to be performed immediately after the state is updated.
+* `readmore:afterToggle` Triggered after the element's state changes.
 <br><br>
 
 ### Callbacks
@@ -207,8 +221,9 @@ You can familiarize yourself with the CSS classes and data attributes used in th
 * `.cs_readmore-btn-wrapper` Applied to the container of the button that manages the «Read More» or «Close» actions. Serves as a wrapper for the button.
 * `.cs_readmore-btn` Assigned to the button that allows the user to expand or collapse the content. Manages the styles of the button itself.
 * `.cs_readmore-animation` Used if the CSS animation mode `animationMode: 'css'` is enabled. Added to create animations through CSS.
+* `.cs_readmore-expanded` Added to the content element when it is fully expanded (used in `animationMode: 'css'`).
 
-* `data-readmore-btn-toggle'` Applied to the «Read More» or «Close» button. Used to track the button's state. The attribute stores the button state: `collapsed` — the button is in the collapsed state; `expanded` — the button is in the expanded state.
+* `data-readmore-btn-toggle` Applied to the «Read More» or «Close» button. Used to track the button's state. The attribute stores the button state: `collapsed` — the button is in the collapsed state; `expanded` — the button is in the expanded state.
 * `data-readmore-block-toggle` Applied to the element containing the content. Helps track the current state of the content (collapsed or expanded). The attribute manages the content block's state: `collapsed` — the block is collapsed. `expanded` — the block is expanded.
 <br>
 
@@ -246,15 +261,15 @@ The code creates styles for the button container and the button itself, adding p
 
 ## Browser Support
 
- - **Google Chrome:** 💻 51+ | 📱 51+
+ - **Google Chrome:** 💻 49+ | 📱 49+
 
- - **Microsoft Edge:** 💻 Edge 15+ | 📱 Edge 92+
+ - **Microsoft Edge:** 💻 Edge 12+ | 📱 Edge 92+
 
- - **Mozilla Firefox:** 💻 55+ | 📱 55+
+ - **Mozilla Firefox:** 💻 36+ | 📱 36+
 
- - **Safari:** 💻 12.1+ | 📱 14+
+ - **Safari:** 💻 10+ | 📱 10+
 
- - **Opera:** 💻 38+ | 📱 41+
+ - **Opera:** 💻 36+ | 📱 36+
 <br><br>
 
 ## Donation
