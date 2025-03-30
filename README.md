@@ -47,13 +47,13 @@ Then include it in your HTML:
 
 You can also include this library from CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.1/readmore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
 ```
 <br>
 
 Alternative CDNs:
 ```html
-<script src="https://unpkg.com/@corgras/readmore-js@2.1.1/readmore.min.js"></script>
+<script src="https://unpkg.com/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
 ```
 <br>
 
