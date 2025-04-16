@@ -29,62 +29,95 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 
 ## Install NPM
 
-The recommended installation method is NPM. Install the latest version by the following command:
+This method is ideal for projects using the npm package manager. Installing via NPM simplifies dependency management, library updates, and integration with modern JavaScript frameworks such as React, Vue.js, or Angular.
+
+Run the following command in your terminal:
 
 ```bash
 $ npm i @corgras/readmore-js
 ```
 <br>
 
-Then include it in your HTML:
+After installation, include the script in your project. For example, add it to your HTML file:
 
 ```html
 <script src="./node_modules/@corgras/readmore-js/readmore.min.js"></script>
 ```
+
+If you are using a module system, import the library in your JavaScript code (see sections below)
 <br>
 
 ## Install CDN
 
-You can also include this library from CDN:
+Using a CDN (Content Delivery Network) allows you to quickly include Readmore.js without locally storing files. CDNs provide fast loading speeds due to caching and a global server network.
+
+Add one of the following scripts to the `&lt;head&gt;` section or before the closing `&lt;/body&gt;` tag:
+
+CDN jsDelivr:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
 
-Alternative CDNs:
+CDN Unpkg:
 ```html
-<script src="https://unpkg.com/@corgras/readmore-js@2.1.0/readmore.min.js"></script>
+<script src="https://unpkg.com/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
 
 ## Install Node.js/CommonJS
 
-Requires prior installation via NPM:
+For projects using CommonJS (e.g., in Node.js or with tools like Webpack), you can import the main Readmore.js function after installing via NPM.
+
+Add the following code to your JavaScript file:
 ```javascript
-const { initReadMore } = require('@corgras/readmore-js')
+const initReadMore = require('@corgras/readmore-js');
+// Initialization: initReadMore('.selector', { /* options */ });
 ```
+
+Ensure your project is configured to work with CommonJS modules.
 <br>
 
 ## Install ES Modules
 
-Requires prior installation via NPM and a module bundler (e.g., Webpack, Rollup, or Vite):
+For modern projects using ES modules (e.g., with Vite, Rollup, or modern versions of Webpack), import Readmore.js as a module after installing via NPM:
+
+Add the following code to your JavaScript file:
 ```javascript
-import { initReadMore } from '@corgras/readmore-js'
+import initReadMore from '@corgras/readmore-js';
+// Initialization: initReadMore('.selector', { /* options */ });
+```
+
+Ensure your HTML file includes the `type="module"` attribute in the `&lt;script&gt;` tag if you are including the script directly.
+
+Example of including with module type:
+```html
+&lt;script type="module"&gt;
+	import initReadMore from './node_modules/@corgras/readmore-js/readmore.min.js';
+	initReadMore('.content', { collapsedHeight: 200 });
+&lt;/script&gt;
 ```
 <br>
 
 
 ## Install Manually
 
+If you are not using package managers, you can include Readmore.js by manually downloading the script file. This method gives you full control over the library version and does not rely on external tools.
+
 Download a zip of the latest release. 
 
 <a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
 
-Import the `readmore.min.js` file by the `<script>` tag:
+Place the downloaded file in your project folder (e.g., `/js/`).
+
+Include the script in your HTML file by adding the following code in the `&lt;head&gt;` section or before the closing `&lt;/body&gt;` tag:
 
 ```html
-<script src="readmore.min.js"></script>
+<script src="path_to_your_folder/readmore.min.js" defer></script>
 ```
+
+After inclusion, initialize the script by calling the `initReadMore` function.
+
 <br>
 
 ## Usage
@@ -160,6 +193,7 @@ readmore.destroy(); // Removes event listeners and resets styles
 * `animationMode: 'js'` Animation mode for height change: `'js'` — use JavaScript animation; `'css'` — CSS animation is used (requires `.cs_readmore-animation` with custom CSS animations).
 * `animationType: 'ease-in-out'` Defines the timing function for JavaScript-based animation (works with `animationMode: 'js'`). Options: `'linear'`, `'ease'`, `'ease-in'`, `'ease-out'`, `'ease-in-out'`.
 * `scrollToTopOnCollapse: true/false` If set to true, the page automatically scrolls to the top of the content element when collapsing it. Useful for ensuring the content remains in view after collapsing.
+* `disableCollapse: true/false` Disabling the collapsing functionality for a specified width range.
 * `breakpoints: {}` Customize options for different screen widths. Keys are max-width breakpoints (in pixels); settings apply when the window width is less than or equal to the key.
 * `beforeToggle: null` Callback function called before toggling the state.
 * `afterToggle: null` Callback function called after toggling the state.
@@ -232,7 +266,7 @@ You can familiarize yourself with the CSS classes and data attributes used in th
 The code creates styles for the button container and the button itself, adding padding, text alignment, and user interaction styles, including color changes on hover.
 
 ```css
-.cs_readmore-btn-wrapper {
+cs_readmore-btn-wrapper {
 	margin: 15px auto 0;
 	text-align: center;
 }
@@ -256,6 +290,28 @@ The code creates styles for the button container and the button itself, adding p
 .cs_readmore-btn:hover {
 	color: #0051DE;
 }
+.cs_readmore-animation {
+	transition: height 300ms ease-in-out;
+	overflow: hidden;
+}
+.cs_readmore-expanded {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.cs_readmore-btn[data-readmore-btn-toggle="expanded"] {
+	background-color: #dc3545;
+}
+.cs_readmore-btn[data-readmore-btn-toggle="expanded"]:hover {
+	background-color: #c82333;
+}
+
+/* Icons for buttons using CSS */
+.cs_readmore-btn::after {
+	content: '↓';
+	font-size: 14px;
+}
+.cs_readmore-btn[data-readmore-btn-toggle="expanded"]::after {
+	content: '↑';
+}
 ```
 <br><br>
 
@@ -263,9 +319,9 @@ The code creates styles for the button container and the button itself, adding p
 
  - **Google Chrome:** 💻 49+ | 📱 49+
 
- - **Microsoft Edge:** 💻 Edge 12+ | 📱 Edge 92+
+ - **Microsoft Edge:** 💻 Edge 15+ | 📱 Edge 92+
 
- - **Mozilla Firefox:** 💻 36+ | 📱 36+
+ - **Mozilla Firefox:** 💻 44+ | 📱 44+
 
  - **Safari:** 💻 10+ | 📱 10+
 
