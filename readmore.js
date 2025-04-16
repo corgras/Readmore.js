@@ -1,5 +1,5 @@
 /*!
- * Readmore.js v2.1.0 - JavaScript plugin
+ * Readmore.js v2.2.0 - JavaScript plugin
  * Author: @RoS (CORGRAS)
  * Project home: https://corgras.github.io/readmore/
  * Github: https://github.com/corgras/readmore.js
@@ -37,6 +37,7 @@
 			lessLink: '<span>Close</span>',
 			breakpoints: {},
 			hideButtonCollapse: false,
+			disableCollapse: false,
 			animationMode: 'js', // 'js' - 'css'
 			animationType: 'ease-in-out', // For JS / Для JS: 'linear', 'ease', 'ease-in', 'ease-out', 'ease-in-out'
 			scrollToTopOnCollapse: true,
@@ -78,12 +79,46 @@
 			const breakpoints = options.breakpoints;
 			const breakpointKeys = Object.keys(breakpoints)
 				.map(Number)
-				.sort((a, b) => b - a);
+				.filter(key => !isNaN(key))
+				.sort((a, b) => a - b);
 
-			for (const key of breakpointKeys) {
-				if (width <= key) return Object.assign({}, options, breakpoints[key]);
+			// If no breakpoints, return general options
+			// Если нет breakpoints, возвращаем общие опции
+			// Якщо немає breakpoints, повертаємо загальні опції
+			if (!breakpointKeys.length) {
+				return options;
 			}
-			return options;
+
+			// If screen width is greater than the maximum breakpoint, disable script
+			// Если ширина экрана больше максимальной точки, скрипт не применяется
+			// Якщо ширина екрана більша за максимальну точку, скрипт не застосовується
+			const maxBreakpoint = breakpointKeys[breakpointKeys.length - 1];
+			if (width > maxBreakpoint) {
+				return null;
+			}
+
+			// Find the appropriate breakpoint
+			// Находим подходящую точку останова
+			// Знаходимо відповідну точку зупинки
+			let selectedBreakpoint = null;
+			for (const key of breakpointKeys) {
+				if (width <= key) {
+					selectedBreakpoint = key;
+					break;
+				}
+			}
+
+			// If width is less than the smallest breakpoint, use the smallest
+			// Если ширина меньше минимальной точки, используем минимальную
+			// Якщо ширина менша за мінімальну точку, використовуємо мінімальну
+			if (selectedBreakpoint === null) {
+				selectedBreakpoint = breakpointKeys[0];
+			}
+
+			// Merge general options with breakpoint-specific options
+			// Объединяем общие опции с опциями для выбранной точки останова
+			// Об'єднуємо спільні опції з опціями для обраної точки зупинки
+			return Object.assign({}, options, breakpoints[selectedBreakpoint]);
 		};
 
 		// Main function to update each element’s "Read More" behavior
@@ -91,6 +126,16 @@
 		// Основна функція оновлення поведінки "Читати далі" для кожного елемента
 		const updateElement = (element, currentOptions) => {
 			if (element.dataset.readmoreProcessed) cleanupElement(element);
+
+			// If currentOptions is null or disableCollapse is true, skip processing
+			// Если currentOptions === null или disableCollapse === true, скрипт не применяется
+			// Якщо currentOptions === null або disableCollapse === true, скрипт не застосовується
+			if (!currentOptions || currentOptions.disableCollapse) {
+				element.style.height = 'auto';
+				element.removeAttribute('aria-hidden');
+				cleanupElement(element);
+				return;
+			}
 
 			// Check if the content is effectively empty
 			// Проверка, является ли содержимое фактически пустым
@@ -164,7 +209,7 @@
 			});
 
 			element.dataset.readmoreBlockToggle = 'collapsed';
-			element.setAttribute('role', 'region');
+			element.setAttribute('role', 'area');
 			if (currentOptions.animationMode === 'css') {
 				element.classList.add('cs_readmore-animation');
 			}
@@ -260,7 +305,7 @@
 				toggleBtn.innerHTML = sanitizeHTML(isExpanded ? currentOptions.lessLink : currentOptions.moreLink);
 				element.dataset.readmoreBlockToggle = isExpanded ? 'expanded' : 'collapsed';
 				toggleBtn.dataset.readmoreBtnToggle = isExpanded ? 'expanded' : 'collapsed';
-				
+
 				const ariaExpanded = isExpanded.toString();
 				element.setAttribute('aria-expanded', ariaExpanded);
 				toggleBtn.setAttribute('aria-expanded', ariaExpanded);
@@ -307,7 +352,10 @@
 		// Инициализация функционала "Читать дальше" и подключение слушателя изменения размера
 		// Ініціалізація функціоналу "Читати далі" та підключення слухача зміни розміру
 		const initialOptions = getOptionsForWidth(window.innerWidth);
-		elements.forEach(element => updateElement(element, initialOptions));
+		if (initialOptions && !initialOptions.disableCollapse) {
+			elements.forEach(element => updateElement(element, initialOptions));
+		}
+
 		window.addEventListener('resize', handleResize);
 
 		// Return an object with a destroy method to clean up
