@@ -140,7 +140,7 @@ For initialization, use a CSS selector, such as the class `.readmore`, which sho
 ```
 <br>
 
-**Initialization without additional parameters:**
+### Initialization without additional parameters:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 <br>
 
-**Initialization with Parameters:**
+### Initialization with Parameters:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 <br>
 
-**Initialization with Responsive Settings:**
+### Initialization with Responsive Settings:
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 <br>
 
-**Destroying the plugin:**
+### Destroying the plugin:
 
 ```javascript
 const readmore = initReadMore('.readmore');
@@ -257,7 +257,7 @@ The `blockProcessed` callback receives `element` and `isExpandable`.
 * `isExpandable`: a boolean value indicating whether collapsing is needed
 <br><br>
 
-#### Callback Example:
+### Callback Example:
 
 This example demonstrates the use of callback functions to modify the button's appearance and text depending on the element's state. It shows how the button style can be changed before and after state toggling:
 
@@ -285,7 +285,7 @@ initReadMore('.content', {
 
 This section will help you customize the appearance and behavior of elements controlled by the Readmore.js plugin. Below is a detailed description of the CSS classes, data attributes, and ARIA attributes used in the plugin, along with recommendations for their styling. These tools enable you to create a responsive, accessible, and visually appealing interface for the «Read more»/«Collapse» functionality.
 
-**CSS Class**
+### CSS Class
 
 * `.cs_readmore-btn-wrapper` Container for the «Read more» or «Collapse» button. Used as a wrapper for the button to facilitate positioning and styling. Automatically hidden if the content is shorter than `collapsedHeight` or if `hideButtonCollapse: true` in the expanded state.
 
@@ -296,7 +296,7 @@ This section will help you customize the appearance and behavior of elements con
 * `.cs_readmore-expanded` Added to the content element in the expanded state in CSS animation mode (`animationMode: 'css'`). Allows styling the expanded state, e.g., changing the background or border. Useful for visually indicating the active state of the content.
 <br>
 
-**Data Attributes**
+### Data Attributes
 
 * `data-readmore-btn-toggle` Added to the «Read more»/«Collapse» button to track its state. Possible values: `collapsed` — button in the collapsed content state (displays `moreLink`). `expanded` — button in the expanded content state (displays `lessLink`). Can be used for conditional button styling based on its state.
 
@@ -305,7 +305,7 @@ This section will help you customize the appearance and behavior of elements con
 * `data-readmore-processed` Added to the content element after being processed by the plugin. Value: `true`; Used to indicate that the element has already been initialized to prevent reprocessing.
 <br>
 
-**ARIA Attributes**
+### ARIA Attributes
 
 * `aria-expanded` Added to the content element and button to indicate their state. Possible values: `true` — content is expanded. `false` — content is collapsed. Ensures accessibility for screen readers by indicating the element's state.
 
@@ -316,18 +316,19 @@ This section will help you customize the appearance and behavior of elements con
 * `role` Added to the content element. Value: `area`. Marks the element as an important page area for screen readers.
 <br>
 
-**Additional Notes**
+### Additional Notes
 
-JS Animation Mode: If `animationMode: 'js'`, styles for `.cs_readmore-animation` and `.cs_readmore-expanded` are not needed, as the animation is handled by JavaScript.
+**JS Animation Mode:** If `animationMode: 'js'`, styles for `.cs_readmore-animation` and `.cs_readmore-expanded` are not needed, as the animation is handled by JavaScript.
 						
-Responsiveness: Use media queries along with the `breakpoints` parameter to adjust styles for different screen sizes.
+**Responsiveness:** Use media queries along with the `breakpoints` parameter to adjust styles for different screen sizes.
 
-Events: The plugin triggers custom events `readmore:beforeToggle` and `readmore:afterToggle`, which can be used for dynamic style changes via JavaScript.
+**Events:** The plugin triggers custom events `readmore:beforeToggle` and `readmore:afterToggle`, which can be used for dynamic style changes via JavaScript.
 
-Style Cleanup: When the `destroy` method is called, all classes, attributes, and styles added by the plugin are removed, restoring elements to their original state.
+**Style Cleanup:** When the `destroy` method is called, all classes, attributes, and styles added by the plugin are removed, restoring elements to their original state.
+<br>
 <br>
 
-**Example of Styling**
+### Example of Styling
 
 The code creates styles for the button container and the button itself, adding padding, text alignment, and user interaction styles, including color changes on hover.
 
