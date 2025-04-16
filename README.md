@@ -12,13 +12,13 @@
 <a href="https://www.paypal.com/donate/?hosted_button_id=DMETJT5YE55HN"><img alt="Donate" src="https://img.shields.io/badge/Donate-PayPal?style=for-the-badge&logo=paypal&label=PayPal&color=blue"></a>
 </div>
 <br>
-A smooth and responsive plugin in pure JavaScript for collapsing and expanding long text blocks. The «Read More» or «Close» buttons allow you to hide or show additional content, enhancing readability and saving space on the page. Perfect for mobile devices and convenient management of large amounts of text.
+ReadMore.js is a lightweight and flexible JavaScript plugin for creating user-friendly expandable text blocks with "Read More" and "Hide" buttons. It optimizes the display of large amounts of content, improving readability and saving space on the page. The plugin is ideal for websites, blogs, news portals, and other projects where managing long texts on desktops and mobile devices is necessary.
 <br><br>
 
 **NOTE:**
 
- - The script does not depend on external libraries (such as jQuery).  
- - Content displayed with Readmore.js is fully accessible to search engines from the start, as the HTML structure remains unchanged.
+ - The plugin works standalone, requiring no third-party libraries such as jQuery..  
+ - All content remains accessible to search engines, as the plugin does not alter the HTML structure of the page.
 <br><br>
 
 **DOCUMENTATION DETAILED:**
@@ -130,15 +130,18 @@ If you are not using package managers, you can include Readmore.js by manually d
 
 ## Usage
 
-**Initialization without additional parameters:**
-HTML:
+The Readmore.js plugin allows you to create a «Read More» functionality for any elements with textual content, such as `<div>`, `<p>`, `<section>`, or `<article>`. The script trims the content to a specified height and adds a button to expand/collapse the text.
+For initialization, use a CSS selector, such as the class `.readmore`, which should be added to the target elements. Ensure the element contains enough content so that its height exceeds the `collapsedHeight` parameter; otherwise, the button will not appear.
+
 ```html
 <div class="readmore">
 	<p>Long content here...</p>
 </div>
 ```
+<br>
 
-Javascript:
+**Initialization without additional parameters:**
+
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
     initReadMore('.readmore');
@@ -200,19 +203,31 @@ readmore.destroy(); // Removes event listeners and resets styles
 
 ## Options
 
-* `collapsedHeight: 250` Sets the initial content height in collapsed state (in pixels).
-* `speed: 300` Defines the speed of the height change animation (in milliseconds).
-* `moreLink: '<span>Read more</span>'` The «Read More» button text with HTML support. Used inside the <button> element, which is displayed to expand hidden content.
-* `lessLink: '<span>Close</span>'` The «Close» button text with HTML support. Used inside the <button> element, which is displayed to collapse content after it has been expanded.
-* `hideButtonCollapse: true/false` If `true`, hides the button when content is fully expanded.
-* `animationMode: 'js'` Animation mode for height change: `'js'` — use JavaScript animation; `'css'` — CSS animation is used (requires `.cs_readmore-animation` with custom CSS animations).
+* `collapsedHeight: 250` Defines the initial height of collapsed content in pixels. If the content is shorter than this height, the «Read More» button is not displayed.
+
+* `speed: 300` Sets the duration of the expand/collapse animation in milliseconds. For collapsing in `animationMode: 'js'` mode, the speed is halved.
+
+* `moreLink: '<span>Read more</span>'` HTML string for the «Read More» button displayed in the collapsed state. Inserted into a `<button>` element. For security, HTML is sanitized of potentially dangerous attributes.
+
+* `lessLink: '<span>Close</span>'` HTML string for the «Close» button displayed in the expanded state. Inserted into a `<button>` element. Supports sanitization of HTML from unsafe code.
+
+* `hideButtonCollapse: true/false` If `true`, the button is hidden after expanding the content, avoiding unnecessary interface elements..
+
+* `animationMode: 'js'` Defines the type of animation: `js` - Animation via JavaScript with smooth height transition. `css` - Animation via CSS, adds the `.cs_readmore-animation` class for styling.
+
 * `animationType: 'ease-in-out'` Defines the timing function for JavaScript-based animation (works with `animationMode: 'js'`). Options: `'linear'`, `'ease'`, `'ease-in'`, `'ease-out'`, `'ease-in-out'`.
-* `scrollToTopOnCollapse: true/false` If set to true, the page automatically scrolls to the top of the content element when collapsing it. Useful for ensuring the content remains in view after collapsing.
-* `disableCollapse: true/false` Disabling the collapsing functionality for a specified width range.
-* `breakpoints: {}` Customize options for different screen widths. Keys are max-width breakpoints (in pixels); settings apply when the window width is less than or equal to the key.
-* `beforeToggle: null` Callback function called before toggling the state.
-* `afterToggle: null` Callback function called after toggling the state.
-* `blockProcessed: null` Callback function called after processing each element.
+
+* `scrollToTopOnCollapse: true/false` If `true`, the page smoothly scrolls to the top of the content after collapsing, improving viewing convenience.
+
+* `disableCollapse: true/false` If `true`, disables the collapse function for an element or screen width range, displaying the full content.
+
+* `breakpoints: {}` Allows setting different parameter values based on screen width. Keys are the maximum screen width in pixels, values are an object with parameters. If the screen width exceeds the maximum key, collapsing is disabled.
+
+* `beforeToggle: null` Callback invoked before expanding/collapsing starts. Receives arguments: `button` (button), `element` (content element), `isExpanded` (boolean state).
+
+* `afterToggle: null` Callback invoked after expanding/collapsing completes. Receives the same arguments: `button`, `element`, `isExpanded`.
+
+* `blockProcessed: null` Callback invoked after the plugin processes an element. Receives arguments: `element` (content element), `needsToggle` (boolean indicating if a button is needed).
 <br><br>
 
 ## Events
@@ -229,13 +244,16 @@ Readmore.js generates two events: `readmore:beforeToggle` and `readmore:afterTog
 The `beforeToggle` and `afterToggle` callbacks receive the following arguments: `trigger`, `element`, and `isExpanded`.
 
 * `trigger`: The element that triggers the action (e.g., the «Read more» or «Close» button).
+
 * `element`: The element containing the content to be expanded or collapsed.
+
 * `isExpanded`: A value indicating the content's state: (true — expanded, false — collapsed).
 <br>
 
 The `blockProcessed` callback receives `element` and `isExpandable`.
 
 * `element`: the block that has just been processed
+
 * `isExpandable`: a boolean value indicating whether collapsing is needed
 <br><br>
 
@@ -265,15 +283,48 @@ initReadMore('.content', {
 
 ## CSS:
 
-You can familiarize yourself with the CSS classes and data attributes used in the Readmore.js plugin, as well as their descriptions. These classes and attributes will help you style elements and control their behavior when expanding and collapsing content.
+This section will help you customize the appearance and behavior of elements controlled by the Readmore.js plugin. Below is a detailed description of the CSS classes, data attributes, and ARIA attributes used in the plugin, along with recommendations for their styling. These tools enable you to create a responsive, accessible, and visually appealing interface for the «Read more»/«Collapse» functionality.
 
-* `.cs_readmore-btn-wrapper` Applied to the container of the button that manages the «Read More» or «Close» actions. Serves as a wrapper for the button.
-* `.cs_readmore-btn` Assigned to the button that allows the user to expand or collapse the content. Manages the styles of the button itself.
-* `.cs_readmore-animation` Used if the CSS animation mode `animationMode: 'css'` is enabled. Added to create animations through CSS.
-* `.cs_readmore-expanded` Added to the content element when it is fully expanded (used in `animationMode: 'css'`).
+**CSS Class**
 
-* `data-readmore-btn-toggle` Applied to the «Read More» or «Close» button. Used to track the button's state. The attribute stores the button state: `collapsed` — the button is in the collapsed state; `expanded` — the button is in the expanded state.
-* `data-readmore-block-toggle` Applied to the element containing the content. Helps track the current state of the content (collapsed or expanded). The attribute manages the content block's state: `collapsed` — the block is collapsed. `expanded` — the block is expanded.
+* `.cs_readmore-btn-wrapper` Container for the «Read more» or «Collapse» button. Used as a wrapper for the button to facilitate positioning and styling. Automatically hidden if the content is shorter than `collapsedHeight` or if `hideButtonCollapse: true` in the expanded state.
+
+* `.cs_readmore-btn` Assigned to the button itself, responsible for expanding or collapsing the content. Contains HTML defined in the `moreLink` or `lessLink` parameters. Can be styled to change color, size, background, etc.
+
+* `.cs_readmore-animation` Applied to the content element in CSS animation mode (`animationMode: 'css'`). Adds smooth transitions for changing the block's height. It is recommended to define the CSS `transition` property for this class.
+
+* `.cs_readmore-expanded` Added to the content element in the expanded state in CSS animation mode (`animationMode: 'css'`). Allows styling the expanded state, e.g., changing the background or border. Useful for visually indicating the active state of the content.
+<br>
+
+**Data Attributes**
+
+* `data-readmore-btn-toggle` Added to the «Read more»/«Collapse» button to track its state. Possible values: `collapsed` — button in the collapsed content state (displays `moreLink`). `expanded` — button in the expanded content state (displays `lessLink`). Can be used for conditional button styling based on its state.
+
+* `data-readmore-block-toggle` Applied to the content element to track its state. Possible values: `collapsed` — content is collapsed (limited by `collapsedHeight`). `expanded` — content is fully expanded. Useful for creating styles specific to the block's state.
+
+* `data-readmore-processed` Added to the content element after being processed by the plugin. Value: `true`; Used to indicate that the element has already been initialized to prevent reprocessing.
+<br>
+
+**ARIA Attributes**
+
+* `aria-expanded` Added to the content element and button to indicate their state. Possible values: `true` — content is expanded. `false` — content is collapsed. Ensures accessibility for screen readers by indicating the element's state.
+
+* `aria-hidden` Applied to the content element in the collapsed state. Possible values: `true` — content is hidden (collapsed, not all content is accessible). Absent — content is expanded and fully visible. Helps screen readers ignore hidden content in the collapsed state.
+
+* `aria-controls` Added to the button to associate it with the content element. Value: unique identifier of the content element. Indicates which element is controlled by the button, improving navigation for users with assistive technologies.
+
+* `role` Added to the content element. Value: `area`. Marks the element as an important page area for screen readers.
+<br>
+
+**Additional Notes**
+
+JS Animation Mode: If `animationMode: 'js'`, styles for `.cs_readmore-animation` and `.cs_readmore-expanded` are not needed, as the animation is handled by JavaScript.
+						
+Responsiveness: Use media queries along with the `breakpoints` parameter to adjust styles for different screen sizes.
+
+Events: The plugin triggers custom events `readmore:beforeToggle` and `readmore:afterToggle`, which can be used for dynamic style changes via JavaScript.
+
+Style Cleanup: When the `destroy` method is called, all classes, attributes, and styles added by the plugin are removed, restoring elements to their original state.
 <br>
 
 **Example of Styling**
