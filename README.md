@@ -31,72 +31,80 @@ A smooth and responsive plugin in pure JavaScript for collapsing and expanding l
 
 This method is ideal for projects using the npm package manager. Installing via NPM simplifies dependency management, library updates, and integration with modern JavaScript frameworks such as React, Vue.js, or Angular.
 
-Run the following command in your terminal:
+- Run the following command in your terminal:
 
 ```bash
 $ npm i @corgras/readmore-js
 ```
-<br>
 
-After installation, include the script in your project. For example, add it to your HTML file:
+- After installation, include the script in your project. For example, add it to your HTML file:
 
 ```html
 <script src="./node_modules/@corgras/readmore-js/readmore.min.js"></script>
 ```
 
-If you are using a module system, import the library in your JavaScript code (see sections below)
+- If you are using a module system, import the library in your JavaScript code (see sections below)
+<br>
 <br>
 
 ## Install CDN
 
 Using a CDN (Content Delivery Network) allows you to quickly include Readmore.js without locally storing files. CDNs provide fast loading speeds due to caching and a global server network.
 
-Add one of the following scripts to the `&lt;head&gt;` section or before the closing `&lt;/body&gt;` tag:
+- Add one of the following scripts to the `<head>` section or before the closing `</body>` tag:
 
 CDN jsDelivr:
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@corgras/readmore-js/readmore.min.js"></script>
 ```
 <br>
 
 CDN Unpkg:
+
 ```html
 <script src="https://unpkg.com/@corgras/readmore-js/readmore.min.js"></script>
 ```
+<br>
 <br>
 
 ## Install Node.js/CommonJS
 
 For projects using CommonJS (e.g., in Node.js or with tools like Webpack), you can import the main Readmore.js function after installing via NPM.
 
-Add the following code to your JavaScript file:
+- Add the following code to your JavaScript file:
+
 ```javascript
 const initReadMore = require('@corgras/readmore-js');
 // Initialization: initReadMore('.selector', { /* options */ });
 ```
 
-Ensure your project is configured to work with CommonJS modules.
+- Ensure your project is configured to work with CommonJS modules.
+<br>
 <br>
 
 ## Install ES Modules
 
 For modern projects using ES modules (e.g., with Vite, Rollup, or modern versions of Webpack), import Readmore.js as a module after installing via NPM:
 
-Add the following code to your JavaScript file:
+- Add the following code to your JavaScript file:
+
 ```javascript
 import initReadMore from '@corgras/readmore-js';
 // Initialization: initReadMore('.selector', { /* options */ });
 ```
 
-Ensure your HTML file includes the `type="module"` attribute in the `&lt;script&gt;` tag if you are including the script directly.
+- Ensure your HTML file includes the `type="module"` attribute in the `<script>` tag if you are including the script directly.
 
-Example of including with module type:
+- Example of including with module type:
+
 ```html
-&lt;script type="module"&gt;
+<script type="module">
 	import initReadMore from './node_modules/@corgras/readmore-js/readmore.min.js';
 	initReadMore('.content', { collapsedHeight: 200 });
-&lt;/script&gt;
+</script>
 ```
+<br>
 <br>
 
 
@@ -104,30 +112,33 @@ Example of including with module type:
 
 If you are not using package managers, you can include Readmore.js by manually downloading the script file. This method gives you full control over the library version and does not rely on external tools.
 
-Download a zip of the latest release. 
+- Download a zip of the latest release. 
 
 <a href="https://github.com/corgras/Readmore.js/releases/latest"><img alt="Download" src="https://img.shields.io/badge/download-b?style=for-the-badge&color=blue"></a>
 
-Place the downloaded file in your project folder (e.g., `/js/`).
+- Place the downloaded file in your project folder (e.g., `/js/`).
 
-Include the script in your HTML file by adding the following code in the `&lt;head&gt;` section or before the closing `&lt;/body&gt;` tag:
+- Include the script in your HTML file by adding the following code in the `<head>` section or before the closing `</body>` tag:
 
 ```html
 <script src="path_to_your_folder/readmore.min.js" defer></script>
 ```
 
-After inclusion, initialize the script by calling the `initReadMore` function.
-
+- After inclusion, initialize the script by calling the `initReadMore` function.
+<br>
 <br>
 
 ## Usage
 
 **Initialization without additional parameters:**
+HTML:
 ```html
 <div class="readmore">
 	<p>Long content here...</p>
 </div>
 ```
+
+Javascript:
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
     initReadMore('.readmore');
@@ -135,40 +146,43 @@ document.addEventListener('DOMContentLoaded', function () {
 ```
 <br>
 
-**Initialization with additional options for all screen sizes:**
+**Initialization with Parameters:**
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
 	initReadMore('.readmore', {
-		collapsedHeight: 250,
-		speed: 300,
-		moreLink: '<span>Read More</span>',
-		lessLink: '<span>Close</span>'
+		collapsedHeight: 200, // Height of the collapsed block in pixels
+		speed: 400,          // Animation duration in milliseconds
+		moreLink: '<span>Read More</span>', // Text for the expand button
+		lessLink: '<span>Collapse</span>'   // Text for the collapse button
 	});
 });
 ```
 <br>
 
-**Initialization for different screen sizes:**
+**Initialization with Responsive Settings:**
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
 	initReadMore('.readmore', {
-		collapsedHeight: 250,
-		speed: 300,
+		collapsedHeight: 200,
+		speed: 400,
 		moreLink: '<span>Read More</span>',
-		lessLink: '<span>Close</span>',
+		lessLink: '<span>Collapse</span>',
 		breakpoints: {
-			576: {
+			576: { // For screens up to 576 pixels
 				collapsedHeight: 100,
 				speed: 200,
-				moreLink: '<span>More</span>',
-				lessLink: '<span>Collapse</span>',
+				moreLink: '<span>Details</span>',
+				lessLink: '<span>Hide</span>'
 			},
-			768: {
+			768: { // For screens up to 768 pixels
 				collapsedHeight: 150,
-				speed: 250,
+				speed: 300
 			},
+			1024: { // For screens up to 1024 pixels
+				disableCollapse: true // Disable functionality
+			}
 		}
 	});
 });
@@ -181,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
 const readmore = initReadMore('.readmore');
 readmore.destroy(); // Removes event listeners and resets styles
 ```
+<br>
 <br>
 
 ## Options
