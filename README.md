@@ -333,7 +333,7 @@ This section will help you customize the appearance and behavior of elements con
 The code creates styles for the button container and the button itself, adding padding, text alignment, and user interaction styles, including color changes on hover.
 
 ```css
-cs_readmore-btn-wrapper {
+.cs_readmore-btn-wrapper {
 	margin: 15px auto 0;
 	text-align: center;
 }
